@@ -1,0 +1,16 @@
+[features]
+seeds = false
+[programs.localnet]
+mysolanaapp = "DaWX1kU8QBQRJGb4g8ib3gLyCqoLwSkyyGTiQjrNS7i6"
+[programs.devnet]
+mysolanaapp = "DaWX1kU8QBQRJGb4g8ib3gLyCqoLwSkyyGTiQjrNS7i6"
+
+[registry]
+url = "https://anchor.projectserum.com"
+
+[provider]
+cluster = "localnet"
+wallet = "/Users/shintaro/.config/solana/id.json"
+
+[scripts]
+test = "yarn run ts-mocha -p ./tsconfig.json -t 1000000 tests/**/*.ts"
