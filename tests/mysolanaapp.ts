@@ -45,6 +45,7 @@ describe('mysolanaapp', () => {
       accounts: {
         baseAccount: baseAccount.publicKey,
         user: provider.wallet.publicKey,
+        // Solana公式システムプログラムの公開鍵
         systemProgram: anchor.web3.SystemProgram.programId,
       },
       signers: [baseAccount],
