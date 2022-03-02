@@ -1,5 +1,5 @@
 use anchor_lang::prelude::*;
-
+use anchor_lang::solana_program::system_program;
 declare_id!("DaWX1kU8QBQRJGb4g8ib3gLyCqoLwSkyyGTiQjrNS7i6");
 
 #[program]
@@ -23,19 +23,21 @@ mod mysolanaapp {
 #[derive(Accounts)]
 pub struct Create<'info> {
     // init: アカウント初期化
-    // payer = user: userがトランザクション手数料を支払うこと
+    // payer = user: userがrentを支払うこと
     // space = 16 + 16: 指定のスペースが確保できること。バイト単位。
     #[account(init, payer = user, space = 16 + 16)]
     pub base_account: Account<'info, BaseAccount>,
-    #[account(mut)] // accountがmutableであること
+    #[account(mut)] // payerであるuserがmutableであること
     pub user: Signer<'info>,
+    // system_programがSolanaの公式システムプログラムであること
+    #[account(address = system_program::ID)]
     pub system_program: Program<'info, System>,
 }
 
 // Transaction instructions
 #[derive(Accounts)]
 pub struct Increment<'info> {
-    #[account(mut)] // accountがmutableであること
+    #[account(mut)] // base_accountがmutableであること
     pub base_account: Account<'info, BaseAccount>,
 }
 
