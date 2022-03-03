@@ -1,7 +1,7 @@
 import { useState } from 'react';
 
 import { Idl, Program, Provider, Wallet } from '@project-serum/anchor';
-import { useWallet } from '@solana/wallet-adapter-react';
+import { useAnchorWallet } from '@solana/wallet-adapter-react';
 import { WalletMultiButton } from '@solana/wallet-adapter-react-ui';
 import { ConfirmOptions, Connection, Keypair, PublicKey, SystemProgram } from '@solana/web3.js';
 
@@ -16,16 +16,12 @@ export default function HelloWorld2(props: { network: string }) {
   const [value, setValue] = useState('');
   const [dataList, setDataList] = useState([]);
   const [input, setInput] = useState('');
-  const wallet = useWallet();
+  const wallet = useAnchorWallet();
 
   const getProvider = async () => {
     // プロバイダーを準備
     const connection = new Connection(props.network, opts.preflightCommitment);
-    const provider = new Provider(
-      connection,
-      wallet as unknown as Wallet,
-      opts.preflightCommitment
-    );
+    const provider = new Provider(connection, wallet as Wallet, opts.preflightCommitment);
     return provider;
   };
 
@@ -70,7 +66,7 @@ export default function HelloWorld2(props: { network: string }) {
     setInput('');
   };
 
-  if (!wallet.connected) {
+  if (!wallet) {
     return (
       <div style={{ display: 'flex', justifyContent: 'center', marginTop: '100px' }}>
         <WalletMultiButton />
